@@ -20,7 +20,7 @@ const Register = () => {
           console.log(result.user)
         })
         .catch(error =>{
-          console.log(error);
+          console.error(error);
         })
     }
 
@@ -56,7 +56,7 @@ const Register = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-primary">Register</button>
               </div>
             </form>
 
