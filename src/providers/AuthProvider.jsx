@@ -8,30 +8,36 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
 
+  const [loading, setLoading] = useState(true);
 
     const createUser = (email, password)=>{
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
     const signInUser = (email, password)=>{
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     const logOut = ()=>{
+        setLoading(true)
        return signOut(auth);
     }
 //   observe auth state change 
     useEffect(()=>{
        const unsubScribe = onAuthStateChanged(auth, currentUser =>{
+       
+        console.log('observing current user inside useeffect', currentUser);
         setUser(currentUser);
-        console.log('observing current user inside useeffect', currentUser)
+        setLoading(false);
         });
         return()=>{
             unsubScribe()
         }
     },[])
 
-    const authInfo = { user, createUser, signInUser, logOut }
+    const authInfo = { user, loading, createUser, signInUser, logOut }
 
     return (
        <AuthContext.Provider value={authInfo}>
